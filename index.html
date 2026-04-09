@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>root@system:~</title>
+
+<style>
+body {
+    margin: 0;
+    background: #000;
+    color: #00ff41;
+    font-family: Consolas, monospace;
+    overflow: hidden;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.25;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 750px;
+    background: rgba(10,10,10,0.95);
+    border: 1px solid #0f0;
+    box-shadow: 0 0 40px rgba(0,255,65,0.15);
+}
+
+.terminal-header {
+    background: #111;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+}
+
+#terminal {
+    height: 380px;
+    padding: 15px;
+    font-size: 13px;
+    overflow: hidden;
+    display: none;
+}
+
+#progress-container {
+    display: none;
+    padding: 15px;
+}
+
+.progress-bg {
+    background: #222;
+    height: 10px;
+    width: 100%;
+}
+
+.progress-fill {
+    background: #00ff41;
+    height: 100%;
+    width: 0%;
+}
+
+#alert {
+    display: none;
+    text-align: center;
+    padding: 60px;
+    cursor: pointer;
+}
+
+.glitch {
+    font-size: 42px;
+    color: red;
+    animation: glitch 0.1s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(2px,-2px); }
+    100% { transform: translate(-2px,2px); }
+}
+
+#final {
+    display: none;
+    text-align: center;
+    padding: 40px;
+}
+
+.name-tag {
+    font-size: 50px;
+    color: white;
+    text-shadow: 0 0 25px #00ff41;
+}
+
+button {
+    background: transparent;
+    border: 1px solid #00ff41;
+    color: #00ff41;
+    padding: 15px 30px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00ff41;
+    color: #000;
+}
+
+.flash {
+    animation: flash 0.2s;
+}
+
+@keyframes flash {
+    0% { background: #fff; }
+    100% { background: #300; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="container">
+
+    <div class="terminal-header">
+        <span>Security Verification</span>
+        <span>Cloudflare Secure</span>
+    </div>
+
+    <div id="init" style="padding:40px;text-align:center;">
+        <button onclick="startHack()">I am not a robot</button>
+    </div>
+
+    <div id="terminal"></div>
+
+    <div id="progress-container">
+        Progress: <span id="percent">0%</span>
+        <div class="progress-bg">
+            <div class="progress-fill" id="fill"></div>
+        </div>
+    </div>
+
+    <!-- ALERT -->
+    <div id="alert" onclick="showFinal()">
+        <div class="glitch">SYSTEM HACKED</div>
+        <p style="color:#fff;margin-top:15px;">
+            Unauthorized root access detected...<br>
+            Injecting payload...<br>
+            Extracting system credentials...<br><br>
+            <b style="color:red;">KERNEL BREACH SUCCESSFUL</b><br><br>
+            Click to continue...
+        </p>
+    </div>
+
+    <!-- FINAL -->
+    <div id="final">
+        <h2>System Restored ✔</h2>
+        <p>This was a prank by</p>
+        <div class="name-tag">@Sj Roy</div>
+        <p>Everything is safe 😎</p>
+    </div>
+
+</div>
+
+<script>
+/* Background animation */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles = [];
+for(let i=0;i<80;i++){
+    particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height});
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="#00ff41";
+    particles.forEach(p=>{
+        p.y += 1;
+        if(p.y>canvas.height) p.y=0;
+        ctx.fillRect(p.x,p.y,1,10);
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+
+/* ORDERED REALISTIC LOGS */
+const logs = [
+"[+] Initializing exploit framework...",
+"[+] Loading modules...",
+"[+] Connecting to target host 192.168.0.1...",
+"[+] Performing handshake...",
+"[+] Connection established",
+"[+] Scanning target ports...",
+"[+] Port 22 (SSH) OPEN",
+"[+] Port 80 (HTTP) OPEN",
+"[+] Port 443 (HTTPS) OPEN",
+"[+] Enumerating running services...",
+"[+] Apache server detected",
+"[+] OpenSSH service detected",
+"[+] Checking for known vulnerabilities...",
+"[+] Vulnerability found: CVE-2026-7841",
+"[+] Preparing exploit payload...",
+"[+] Injecting payload into target...",
+"[+] Exploit executed successfully",
+"[+] Gaining initial access shell...",
+"[+] Attempting privilege escalation...",
+"[+] Bypassing security restrictions...",
+"[+] Accessing kernel memory...",
+"[+] Switching user to ROOT...",
+"[+] Root access granted",
+"[+] Dumping system credentials...",
+"[+] Reading /etc/passwd...",
+"[+] Extracting password hashes...",
+"[+] Decrypting hashes...",
+"[+] Credentials recovered",
+"[+] Accessing protected directories...",
+"[+] Mapping internal file system...",
+"[+] Establishing persistence...",
+"[+] Creating hidden backdoor...",
+"[+] Connecting to command server...",
+"[+] Syncing remote instructions...",
+"[+] Uploading collected data...",
+"[+] Encrypting data packets...",
+"[+] Transfer speed stable...",
+"[+] Upload complete",
+"[+] Cleaning system logs...",
+"[+] Removing traces...",
+"[+] Finalizing operation..."
+];
+
+/* START */
+function startHack(){
+    document.getElementById("init").style.display="none";
+    const term=document.getElementById("terminal");
+    term.style.display="block";
+
+    let i=0;
+    let interval=setInterval(()=>{
+        if(i < logs.length){
+            let line = logs[i]; // SEQUENTIAL
+            term.innerHTML += line + "<br>";
+            term.scrollTop = term.scrollHeight;
+            i++;
+        } else {
+            clearInterval(interval);
+            startProgress();
+        }
+    },80);
+}
+
+/* PROGRESS */
+function startProgress(){
+    document.getElementById("terminal").style.display="none";
+    let box=document.getElementById("progress-container");
+    box.style.display="block";
+
+    let fill=document.getElementById("fill");
+    let percent=document.getElementById("percent");
+
+    let p=0;
+    let interval=setInterval(()=>{
+        p+=2;
+        fill.style.width=p+"%";
+        percent.innerText=p+"%";
+
+        if(p>=100){
+            clearInterval(interval);
+            setTimeout(showAlert,500);
+        }
+    },100);
+}
+
+/* ALERT */
+function showAlert(){
+    document.getElementById("progress-container").style.display="none";
+
+    document.body.classList.add("flash");
+
+    setTimeout(()=>{
+        document.body.classList.remove("flash");
+        document.getElementById("alert").style.display="block";
+    },200);
+}
+
+/* FINAL CLICK */
+function showFinal(){
+    document.getElementById("alert").style.display="none";
+    document.body.style.background="#000";
+    document.getElementById("final").style.display="block";
+}
+</script>
+
+</body>
+  </html>
